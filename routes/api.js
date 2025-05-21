@@ -41,7 +41,7 @@ module.exports = function (app) {
         return res.send({ error: "no update field(s) sent", _id: data._id });
       try {
         const result = await projects.findByIdAndUpdate(data._id,{updated_on:new Date(),...data});
-        if (!result) throw res.json({ error: 'could not update', '_id': data._id })
+        if (!result) return res.json({ error: 'could not update', '_id': data._id })
         res.json({ result: "successfully updated", _id: data._id });
       } catch (error) {
         res.json({ error: "could not update", _id: data._id });
@@ -53,7 +53,7 @@ module.exports = function (app) {
       if (!id) return res.send({ error: "missing _id" });
       try {
         const result = await projects.findByIdAndDelete(id);
-        if (!result) throw res.json({ error: 'could not delete', '_id': id })
+        if (!result) return res.json({ error: 'could not delete', '_id': id })
         res.json({ result: "successfully deleted", _id: id });
       } catch (error) {
         res.json({ error: 'could not delete', '_id': id });
